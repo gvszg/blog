@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
+  # Fix
+  respond_to :html, :json
   # GET /posts
   def index
     @posts = Post.recent
