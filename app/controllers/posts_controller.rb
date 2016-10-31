@@ -4,19 +4,24 @@ class PostsController < ApplicationController
   # GET /posts
   def index
     @posts = Post.recent
+
+    respond_with @posts
   end
 
   # GET /posts/1
   def show
+    respond_with @post
   end
 
   # GET /posts/new
   def new
     @post = Post.new
+    respond_with @post
   end
 
   # GET /posts/1/edit
   def edit
+    respond_with @post
   end
 
   # POST /posts
@@ -24,30 +29,37 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.created_by_ip = request.remote_ip
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render json: @post }
-      else
-        format.html { render :new }
-        format.json { render json: @post.errors }
-      end
-    end
+    # respond_to do |format|
+    #   if @post.save
+    #     format.html { redirect_to @post, notice: 'Post was successfully created.' }
+    #     format.json { render json: @post }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @post.errors }
+    #   end
+    # end
+
+
+    respond_with @post
   end
 
   # PATCH/PUT /posts/1
   def update
-    if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
-    else
-      render :edit
-    end
+    # if @post.update(post_params)
+    #   redirect_to @post, notice: 'Post was successfully updated.'
+    # else
+    #   render :edit
+    # end
+
+    @post.update(post_params)
+    respond_with @post
   end
 
   # DELETE /posts/1
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: 'Post was successfully destroyed.'
+    # redirect_to posts_url, notice: 'Post was successfully destroyed.'
+    respond_with @post
   end
 
   private
